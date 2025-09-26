@@ -1,0 +1,240 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="logo.ico" type="image/x-icon" />
+  <title>Investigações - PFI</title>
+  <style>
+    /* seus estilos originais */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #0b1220;
+      color: #f0f0f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #12233e;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 3px solid #0073e6;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-container img {
+      height: 45px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      letter-spacing: 4px;
+      color: #00aaff;
+      margin: 0;
+    }
+
+    nav a {
+      color: #c0d8f0;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #00aaff;
+    }
+
+    main {
+      flex-grow: 1;
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .welcome-message {
+      text-align: center;
+      font-size: 1.5rem;
+      color: #00ffcc;
+      margin-bottom: 30px;
+      background-color: #12233e;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,255,204,0.2);
+    }
+
+    .sub-header {
+      background-color: #1a2b45;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(0, 170, 255, 0.2);
+      margin-bottom: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .sub-btn {
+      background-color: #005bb5;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .sub-btn:hover {
+      background-color: #0073e6;
+    }
+
+    .oath-container {
+      background-color: #12233e;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 170, 255, 0.2);
+      color: #cceeff;
+      line-height: 1.7;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .oath-title {
+      font-size: 1.6rem;
+      color: #00aaff;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .oath-paragraph {
+      margin-bottom: 15px;
+    }
+
+    .logout {
+      background-color: #cc0000;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 40px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      transition: background-color 0.3s ease;
+    }
+
+    .logout:hover {
+      background-color: #aa0000;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <a href="{% url 'index' %}">
+        <img src="{% static 'logo.png' %}" alt="Logo do PFI" />
+      </a>
+      <h1>PFI</h1>
+    </div>
+    <nav>
+      <a href="{% url 'index' %}">Início</a>
+      <a href="{% url 'sobre' %}">Sobre</a>
+      <a href="{% url 'casosbase' %}">Casos de Base</a>
+      <a href="{% url 'forum' %}">Fórum</a>
+      <a href="{% url 'login' %}">Login</a>
+    </nav>
+  </header>
+
+  <main id="loggedInContent" style="display: none;">
+    <div class="welcome-message">Bem-vindo(a), agente. Você agora está dentro do sistema.</div>
+
+    <div class="sub-header">
+      <button class="sub-btn" id="btnDenunciar">Denunciar</button>
+      <button class="sub-btn" id="btnInvestigar">Investigar</button>
+      <button class="sub-btn" id="btnAnalisar">Analisar</button>
+      <button class="sub-btn" id="btnEstudar">Estudar</button>
+      <button class="sub-btn" id="btnArquivar">Arquivar</button>
+      <button class="sub-btn" id="btnAbertas">Abertas</button>
+      <button class="sub-btn" id="btnConcluidas">Concluídas</button>
+    </div>
+
+    <div class="oath-container">
+      <div class="oath-title">Juramento do Agente PFI</div>
+      <p class="oath-paragraph">
+        Perante o julgamento da História e a voz silente da Pátria, este é o juramento que nos vincula:
+      </p>
+      <p class="oath-paragraph">
+        Não por estandartes ou insígnias vazias, mas ao Povo, em sua essência e vulnerabilidade, e à sua inabalável segurança, nossa lealdade é forjada
+      </p>
+      <p class="oath-paragraph">
+        Contra toda sombra que ameace a paz, desvendaremos a mentira, caçaremos a iniquidade e protegeremos cada cidadão com a firmeza de uma rocha.
+      </p>
+      <p class="oath-paragraph">
+        Nossa vigilância será eterna. Nossas ações, implacáveis. Nosso silêncio, absoluto.
+      </p>
+      <p class="oath-paragraph">
+        Que a dúvida se cale, que o medo se dissipe. Se a honra se desviar, que a própria escuridão nos engula.
+      </p>
+      <p class="oath-paragraph">
+        Assim juramos. Pelo Povo. Pela Segurança.
+      </p>
+    </div>
+
+    <button class="logout" id="logoutBtn">Sair</button>
+  </main>
+
+  <script>
+    const userLogged = localStorage.getItem('userLogged');
+    if (!userLogged) {
+      window.location.href = 'login.html';
+    } else {
+      document.getElementById('loggedInContent').style.display = 'block';
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('userLogged');
+      window.location.href = 'login.html';
+    });
+
+    // Função para criar redirecionamentos
+    function setupButtonRedirect(buttonId, pageName) {
+      document.getElementById(buttonId).addEventListener('click', () => {
+        window.location.href = pageName + '.html';
+      });
+    }
+
+    // Configurar todos os botões
+    setupButtonRedirect('btnDenunciar', 'denunciar');
+    setupButtonRedirect('btnInvestigar', 'investigar');
+    setupButtonRedirect('btnAnalisar', 'analisar');
+    setupButtonRedirect('btnEstudar', 'estudar');
+    setupButtonRedirect('btnArquivar', 'arquivar');
+    setupButtonRedirect('btnAbertas', 'abertas');
+    setupButtonRedirect('btnConcluidas', 'concluidas');
+  </script>
+</body>
+</html>

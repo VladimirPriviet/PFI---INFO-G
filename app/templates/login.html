@@ -1,24 +1,80 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login - PFI</title>
+  <link rel="icon" href="{% static 'logo.ico' %}" type="image/x-icon">
   <style>
-    /* Estilo baseado no seu layout */
     * {
-      margin: 0; padding: 0; box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+
     body {
+      position: relative;
       background-color: #0b1220;
       color: #f0f0f0;
       min-height: 100vh;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
+      flex-direction: column;
+      font-weight: 600;
     }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: -1;
+    }
+
+    header {
+      background-color: #12233e;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 3px solid #0073e6;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-container img {
+      height: 45px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      letter-spacing: 4px;
+      color: #00aaff;
+      margin: 0;
+    }
+
+    nav a {
+      color: #c0d8f0;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #00aaff;
+    }
+
     form {
       background-color: #12233e;
       padding: 30px;
@@ -26,18 +82,23 @@
       width: 100%;
       max-width: 400px;
       box-shadow: 0 0 15px rgba(0,170,255,0.4);
+      margin: 50px auto;
+      z-index: 1;
     }
+
     h2 {
       margin-bottom: 20px;
       color: #00aaff;
       text-align: center;
       font-size: 2rem;
     }
+
     label {
       display: block;
       margin-bottom: 8px;
       font-weight: 600;
     }
+
     input[type="text"],
     input[type="password"] {
       width: 100%;
@@ -47,6 +108,7 @@
       border-radius: 4px;
       font-size: 1rem;
     }
+
     button {
       background-color: #00aaff;
       border: none;
@@ -58,9 +120,11 @@
       width: 100%;
       transition: background-color 0.3s ease;
     }
+
     button:hover {
       background-color: #0088cc;
     }
+
     .error {
       color: #ff6666;
       margin-bottom: 15px;
@@ -70,6 +134,21 @@
   </style>
 </head>
 <body>
+  <header>
+    <div class="logo-container">
+      <a href="{% url 'index' %}">
+        <img src="{% static 'logo.png' %}" alt="Logo do PFI" />
+      </a>
+      <h1>PFI</h1>
+    </div>
+    <nav>
+      <a href="{% url 'index' %}">Início</a>
+      <a href="{% url 'sobre' %}">Sobre</a>
+      <a href="{% url 'casosbase' %}">Casos de Base</a>
+      <a href="{% url 'forum' %}">Fórum</a>
+      <a href="{% url 'login' %}">Login</a>
+    </nav>
+  </header>
 
   <form id="loginForm">
     <h2>Login</h2>
@@ -87,7 +166,7 @@
   <script>
     const validCredentials = {
       "139808": "123heinz123",
-      "136523": "luigirjv123"
+      "136523": "lurjv123"
     };
 
     const form = document.getElementById('loginForm');
@@ -101,7 +180,7 @@
 
       if (validCredentials[codigo] && validCredentials[codigo] === senha) {
         localStorage.setItem('userLogged', codigo);
-        window.location.href = 'ivestigações.html';
+        window.location.href = 'investigacoes.html';
       } else {
         errorDiv.textContent = 'Código ou senha inválidos.';
       }
